@@ -30,20 +30,19 @@ footer{
 }
 
 .flex-menu-content {
-    background-color: grey;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     height: 80vh;
 
 }
 
 .menu {
-    background-color: red;
     justify-self: left;
 }
 
 .content{
-    background-color: aqua;
+    margin-left: 10%;
+    width: 100%;
 
 }
