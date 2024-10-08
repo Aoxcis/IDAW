@@ -37,10 +37,10 @@ footer{
 
 .menu {
     justify-self: left;
+    margin-left: 10px;
 }
 
 .content{
     margin-left: 10%;
     width: 100%;
-
 }
