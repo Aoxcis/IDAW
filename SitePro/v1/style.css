@@ -1,3 +1,5 @@
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,23 +9,27 @@ body {
 footer{
     display: flex;
     justify-content: space-between;
-    margin: 10px;
+    background-color: #1F2937;
+    color: #F9FAF8;
 }
 
 .flex-titre-logo {
     display: flex;
+    background-color: #1F2937;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
     position: relative;
+    height: 150px;
 }
 .titre {
     font-weight: bold;
     text-align: center;
-    color: #333;
+    color: #F9FAF8;
 }
 
 .logo {
+    margin: 10px;
+    margin-top: 10px;
     position: absolute;
     top: 10;
     right: 0;
@@ -31,6 +37,7 @@ footer{
 
 .flex-menu-content {
     display: flex;
+    min-height: 80vh;
     flex-direction: row;
     justify-content: left;
 }
@@ -43,4 +50,9 @@ footer{
 .content{
     margin-left: 10%;
     width: 100%;
+}
+
+#currentpage {
+    color: #333;
+    font-weight: bold;
 }
