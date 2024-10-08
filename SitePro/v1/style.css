@@ -44,7 +44,23 @@ footer{
 
 .menu {
     justify-self: left;
-    margin-left: 10px;
+    padding: 10px;
+    background-color: gray;
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+.menu a {
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+}
+
+.menu a:hover {
+    background-color: rgba(0, 0, 0, 0.439);
+    color: #F9FAF8;
 }
 
 .content{
@@ -53,6 +69,5 @@ footer{
 }
 
 #currentpage {
-    color: #333;
     font-weight: bold;
 }
