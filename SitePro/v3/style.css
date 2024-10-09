@@ -44,6 +44,15 @@ footer{
     display: flex;
     margin-left: 5%;
     flex-direction: column;
+    width: 50vh;
+}
+
+.contact {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+    align-items: center;
+
 }
 
 .projet {
@@ -78,6 +87,8 @@ footer{
 .langue {
     margin-top: auto;
 }
+
+
 
 #currentpage {
     font-weight: bold;
