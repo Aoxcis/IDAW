@@ -9,17 +9,10 @@ require_once('template_header.php');
         <img class="logo" src="images/escargot.png" alt="Mon image">
     </div>
     <div class="flex-menu-content">
-    <nav class="menu">
-            <h2>Menu</h2>
-            <ul>
-                <?php
-                    require_once('template_menu.php');
-                    renderMenuToHTML('cv');
-                ?>
-            </ul>
-        </nav>
-    
-    
+        <?php
+            require_once('template_menu.php');
+            renderMenuToHTML('cv');
+        ?>
         <div class="content">
             <h2>CV</h2>
             <p>Voici mon CV :</p>
