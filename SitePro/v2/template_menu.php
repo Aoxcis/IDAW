@@ -1,6 +1,7 @@
+
 <?php
     function renderMenuToHTML($currentPageId) {
-    // un tableau qui d\'efinit la structure du site
+    // un tableau qui d'efinit la structure du site
         $mymenu = array(
         // idPage titre
             'index' => 'Accueil',
@@ -17,6 +18,5 @@
                 echo "<li><a href='$pageId.php'>{$pageParameters}</a></li>";
             }
         }
-
     }
 ?>
