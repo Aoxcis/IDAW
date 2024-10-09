@@ -44,7 +44,7 @@ footer{
     display: flex;
     margin-left: 5%;
     flex-direction: column;
-    width: 50vh;
+    min-width: 80vh;
 }
 
 .contact {
@@ -59,6 +59,12 @@ footer{
     display: flex;
     flex-direction: column;
     margin: 20px;
+
+}
+
+.projets {
+    display: flex;
+    flex-flow: row;
 }
 
 .menu {
