@@ -16,6 +16,9 @@
                 <h3>SitePro</h3>
                 <p>Voici un projet de site web en html et css</p>
             </div> 
+            <div class="langue">
+                <a href="index.php?page=projets&lang=en">🇬🇧 Anglais</a>
+            </div>
         </div>
     </div>
 </body>

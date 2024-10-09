@@ -16,6 +16,9 @@
                 <h3>SitePro</h3>
                 <p>Here is a website project</p>
             </div> 
+            <div class="langue">
+                <a href="index.php?page=projets&lang=fr">🇫🇷 Français</a>
+            </div>
         </div>
     </div>
 </body>
