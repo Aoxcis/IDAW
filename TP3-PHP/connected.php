@@ -1,3 +1,13 @@
+<head>
+    <meta charset="utf-8">
+    <title>TP2-PHP</title>
+    <?php
+    $style = $_COOKIE['style'];
+    echo '<link rel="stylesheet" href="' . $style . '.css" type="text/css" />';
+    ?>
+</head>
+
+
 <?php
     // on simule une base de données
     $users = array(

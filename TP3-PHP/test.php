@@ -3,6 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>TP3-PHP</title>
+    <?php
+    $style = $_COOKIE['style'];
+    echo '<link rel="stylesheet" href="' . $style . '.css" type="text/css" />';
+    ?>
 </head>
 
 <body>
