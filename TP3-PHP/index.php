@@ -2,6 +2,13 @@
 <html lang="fr">
 
 <?php
+session_start();
+if(isset($_SESSION['login'])) {
+    header('Location: test.php');
+}
+
+
+
 if (isset($_GET['css'])) {
     setcookie('style', $_GET['css']);
     $style = $_GET['css'];
