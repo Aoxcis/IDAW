@@ -22,7 +22,7 @@ if (isset($_GET['css'])) {
 </head>
 
 <body>
-    <h1>TP2 PHP</h1>
+    <h1>TP3 PHP</h1>
     <p>L'heure actuelle est : <?php echo date('H:i:s'); ?></p>
 
     <?php require_once 'login.php'; ?>
