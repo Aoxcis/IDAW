@@ -22,6 +22,21 @@ function delete_user($db, $login){
     $exe->execute();
 }
 
+function update_user($db, $previous_login, $login, $email){
+    $sql1 = "SELECT id FROM users WHERE login = :previous_login";
+    $exe1 = $db->prepare($sql1);
+    $exe1->bindParam(':previous_login', $previous_login);
+    $exe1->execute();
+
+    $sql = "UPDATE users SET login = :login, email = :email WHERE id = :id";
+    $exe = $db->prepare($sql);
+    $exe->bindParam(':login', $login);
+    $exe->bindParam(':email', $email);
+    $exe->bindParam(':id', $exe1->fetch(PDO::FETCH_OBJ)->id);
+    $exe->execute();
+}
+
+
 function setHeaders() {
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
     header("Access-Control-Allow-Origin: *");
@@ -53,10 +68,25 @@ switch($_SERVER["REQUEST_METHOD"]) {
         if (isset($input['login'])) {
             delete_user($pdo, $input['login']);
             setHeaders();
-            http_response_code(204);
+            http_response_code(200);
             exit(json_encode(['status' => 'ok']));
         } else {
             http_response_code(400);
             exit(json_encode(['status' => 'error', 'message' => 'Invalid input']));
         }
+    case 'UPDATE':
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if(isset($input['previous_login']) && isset($input['login']) && isset($input['email'])){
+            update_user($pdo, $input['previous_login'], $input['login'], $input['email']);
+            setHeaders();
+            http_response_code(201);
+            exit(json_encode(['status' => 'ok']));
+        } else {
+            http_response_code(400);
+            exit(json_encode(['status' => 'error', 'message' => 'Invalid input']));
+        }
+    default:
+        http_response_code(405);
+        exit(json_encode(['status' => 'error', 'message' => 'Method not allowed']));
 }
