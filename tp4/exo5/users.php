@@ -53,7 +53,7 @@ switch($_SERVER["REQUEST_METHOD"]) {
         exit(json_encode($result));
     case 'POST':
         $input = json_decode(file_get_contents('php://input'), true);
-        
+
         if (isset($input['login']) && isset($input['email'])) {
             add_user($pdo, $input['login'], $input['email']);
             setHeaders();
