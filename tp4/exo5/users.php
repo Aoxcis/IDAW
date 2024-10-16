@@ -7,6 +7,15 @@ function get_users($db){
     return $res;
 }
 
+function get_one_user($db, $login){
+    $sql = "SELECT * FROM users WHERE login = :login";
+    $exe = $db->prepare($sql);
+    $exe->bindParam(':login', $login);
+    $exe->execute();
+    $res = $exe->fetch(PDO::FETCH_OBJ);
+    return $res;
+}
+
 function user_exists($db, $login){
     $sql = "SELECT * FROM users WHERE login = :login";
     $exe = $db->prepare($sql);
@@ -73,8 +82,16 @@ function setHeaders() {
 
 switch($_SERVER["REQUEST_METHOD"]) {
     case 'GET':
+        $input = json_decode(file_get_contents('php://input'), true);
+        if(isset($input['login'])){
+            $result = get_one_user($pdo, $input['login']);
+            setHeaders();
+            http_response_code(200);
+            exit(json_encode($result));
+        }
         $result = get_users($pdo);
         setHeaders();
+        http_response_code(200);
         exit(json_encode($result));
     case 'POST':
         $input = json_decode(file_get_contents('php://input'), true);
