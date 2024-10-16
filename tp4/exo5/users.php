@@ -8,6 +8,7 @@ function get_users($db){
 }
 
 function get_one_user($db, $login){
+    user_exists($db, $login);
     $sql = "SELECT * FROM users WHERE login = :login";
     $exe = $db->prepare($sql);
     $exe->bindParam(':login', $login);
