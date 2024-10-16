@@ -55,8 +55,9 @@ switch($_SERVER["REQUEST_METHOD"]) {
         $input = json_decode(file_get_contents('php://input'), true);
 
         if (isset($input['login']) && isset($input['email'])) {
-            add_user($pdo, $input['login'], $input['email']);
             setHeaders();
+            add_user($pdo, $input['login'], $input['email']);
+            
             http_response_code(201);
             exit(json_encode(['status' => 'ok']));
         } else {
@@ -66,20 +67,20 @@ switch($_SERVER["REQUEST_METHOD"]) {
     case 'DELETE':
         $input = json_decode(file_get_contents('php://input'), true);
         if (isset($input['login'])) {
-            delete_user($pdo, $input['login']);
             setHeaders();
+            delete_user($pdo, $input['login']);
             http_response_code(200);
             exit(json_encode(['status' => 'ok']));
         } else {
             http_response_code(400);
             exit(json_encode(['status' => 'error', 'message' => 'Invalid input']));
         }
-    case 'UPDATE':
+    case 'PUT':
         $input = json_decode(file_get_contents('php://input'), true);
 
         if(isset($input['previous_login']) && isset($input['login']) && isset($input['email'])){
-            update_user($pdo, $input['previous_login'], $input['login'], $input['email']);
             setHeaders();
+            update_user($pdo, $input['previous_login'], $input['login'], $input['email']);
             http_response_code(201);
             exit(json_encode(['status' => 'ok']));
         } else {
@@ -87,6 +88,6 @@ switch($_SERVER["REQUEST_METHOD"]) {
             exit(json_encode(['status' => 'error', 'message' => 'Invalid input']));
         }
     default:
-        http_response_code(405);
-        exit(json_encode(['status' => 'error', 'message' => 'Method not allowed']));
+        http_response_code(501);
+        exit(json_encode(['status' => 'error', 'message' => 'Method not implemented']));
 }
