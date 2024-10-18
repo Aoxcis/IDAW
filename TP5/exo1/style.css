@@ -43,28 +43,13 @@ footer{
 .content{
     display: flex;
     margin-left: 5%;
-    flex-direction: column;
-    min-width: 80vh;
-}
-
-.contact {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: left;
-    align-items: center;
-
+    flex-flow: column wrap;
 }
 
 .projet {
     display: flex;
     flex-direction: column;
     margin: 20px;
-
-}
-
-.projets {
-    display: flex;
-    flex-flow: row;
 }
 
 .menu {
@@ -78,6 +63,7 @@ footer{
     padding: 0;
 }
 
+
 .menu a {
     text-decoration: none;
     padding: 10px;
@@ -90,10 +76,77 @@ footer{
     color: #F9FAF8;
 }
 
-.langue {
-    margin-top: auto;
+.table {
+    margin: 20px;
+    width: 95%;
+    border-collapse: collapse;
+    border: 1px solid grey;
 }
 
+.table thead {
+    background-color: grey;
+    color: black;
+    border-collapse: collapse;
+    border: 1px solid grey;
+}
+
+.table th {
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.table td {
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+
+
+.col-form-label {
+    color: #1F2937;
+}
+
+.col-sm-3 {
+    margin: 10px;
+    margin-right: 10px;
+}
+
+.error {
+    color: red;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+#inputDateNaissance {
+    width: 5%;
+    padding: 25px;
+    margin: 25px;
+    height: 1%;
+}
+
+#inputAimeCoursWeb {
+    width: 10%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+#addStudentForm {
+    
+    margin: 20px;
+}
+
+#submitButton {
+    float: right;
+    width: 100px;
+}
 
 
 #currentpage {
@@ -102,3 +155,5 @@ footer{
     border-radius: 5px;
     color: black;
 }
+
+

@@ -1,4 +1,4 @@
 <footer>
-        <p>&copy; Grégoire PAUL</p>
+        <p>&copy; 2024</p>
         <p>SitePro</p>
 </footer>
