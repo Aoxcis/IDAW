@@ -34,11 +34,11 @@
                             orderable: false,
                             targets: 10,
                             data: null,
-                            defaultContent: '<button id=edit onclick="onEditClick()">Edit</button>'},
+                            defaultContent: '<button id=edit onclick="onEditClick(this)">Edit</button>'},
                             {orderable: false,
                             targets: 11,
                             data: null,
-                            defaultContent: '<button id=delete onclick="onDeleteClick()">Delete</button>'}
+                            defaultContent: '<button id=delete onclick="onDeleteClick(this)">Delete</button>'}
                         ]
                 });
             });
@@ -92,13 +92,20 @@
         <script>
             
 
-            function onEditClick() {
+            function onEditClick(link) {
+                event.preventDefault();
                 alert("edit clicked");
             }
 
             function onDeleteClick(link) {
-                let nomDel = $(link).closest('tr').find('td:first').text();
+                event.preventDefault();
+                let nomDel = $(link).closest('tr').find('td:first').text().trim();
                 
+                if (nomDel === '') {
+                    alert('Error: Nom is empty');
+                return;
+            }
+
                 $.ajax({
                     url: 'http://localhost:8888/tp4/exo5/users.php',
                     type: 'DELETE',
@@ -107,11 +114,10 @@
                         "login": nomDel,
                     }),
                     success: function(res) {
-                        alert('User ' + nom + ' deleted successfully');
-                        // Optionnel : refresh ou mise à jour de la table HTML
+                        $(link).closest('tr').remove();
                     },
                     error: function(err) {
-                        alert('Error: ' + err.responseText);
+                        alert('Error: ' + err.responseText());
                     }
                     });
                 }
@@ -170,8 +176,8 @@
                                 <tr>
                                     <td>${user.login}</td>
                                     <td>${user.email}</td>
-                                    <td><button id="edit" onclick="onEditClick()">Edit</button>
-                                    <button id="delete" onclick="onDeleteClick()">Delete</button></td>
+                                    <td><button id="edit" onclick="onEditClick(this)">Edit</button>
+                                    <button id="delete" onclick="onDeleteClick(this)">Delete</button></td>
                                 </tr>
                             `);
                         });
