@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset='utf-8'>
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <title>tabletest</title>
+        <style>
+            body{ margin-top: 5em; }
+            .table {
+            margin-top: 100px;
+            margin-bottom: 100px;
+            }
+        </style>
+
+        <script>
+
+            PREFIX = 'http://localhost:8888/TP5/exo2';
+            $(document).ready(function(){
+                $('#myTable').DataTable({
+                        ajax: {
+                            url: PREFIX + '/frontexo2.html',
+                            dataSrc: ''
+                        },
+                        columns: [
+                            { data: 'login' },
+                            { data: 'email' },
+
+                        ],
+                        columnDefs: [ {
+                            orderable: false,
+                            targets: 10,
+                            data: null,
+                            defaultContent: '<button id=edit onclick="onEditClick()">Edit</button>'},
+                            {orderable: false,
+                            targets: 11,
+                            data: null,
+                            defaultContent: '<button id=delete onclick="onDeleteClick()">Delete</button>'}
+                        ]
+                });
+            });
+
+        </script>
+        
+    </head>
+    
+    <body>
+        <table class="table" id="myTable">
+            <thead>
+                <tr>
+                    <th scope="col">login</th>
+                    <th scope="col">email</th>
+                    <th scope="col">CRUD</th>
+                </tr>
+            </thead>
+
+            <tbody id="studentsTableBody">
+            </tbody>
+        </table>
+
+        
+        
+        
+        <form id="addStudentForm" action="" onsubmit="onFormSubmit();">
+            <div class="form-group row">
+                <label for="inputNom" class="col-sm-2 col-form-label">login*</label>
+                <span id="errorNom" class="col-sm-2 error"></span>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputNom" >
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputPrenom" class="col-sm-2 col-form-label">email*</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputPrenom" >
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <span class="col-sm-2"></span>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary form-control" id="submitButton">Submit</button>
+                </div>
+            </div>
+        </form>
+
+
+        <script>
+            
+
+            function onEditClick() {
+                alert("edit clicked");
+            }
+
+            function onDeleteClick(link) {
+                let nomDel = $(link).closest('tr').find('td:first').text();
+                
+                $.ajax({
+                    url: 'http://localhost:8888/tp4/exo5/users.php',
+                    type: 'DELETE',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        "login": nomDel,
+                    }),
+                    success: function(res) {
+                        alert('User ' + nom + ' deleted successfully');
+                        // Optionnel : refresh ou mise à jour de la table HTML
+                    },
+                    error: function(err) {
+                        alert('Error: ' + err.responseText);
+                    }
+                    });
+                }
+
+
+
+
+            function onFormSubmit() {
+                // prevent the form to be sent to the server
+                event.preventDefault();
+                let nom = $("#inputNom").val();
+                let prenom = $("#inputPrenom").val();
+
+
+                let errorNom = document.getElementById("errorNom");
+
+                if (nom === "") {
+                    errorNom.innerHTML = "login is required";
+                    return;
+                } else {
+                    errorNom.innerHTML = "";
+                }
+                
+
+                $.ajax({
+                    url: 'http://localhost:8888/tp4/exo5/users.php',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        login: nom,
+                        email: prenom
+                    }),
+                    success: function(res) {
+                        $('#studentsTableBody').append(`
+                            <tr>
+                                <td>${nom}</td>
+                                <td>${prenom}</td>
+                                <td><button id="edit" onclick="onEditClick(this)">Edit</button>
+                                <button id="delete" onclick="onDeleteClick(this)">Delete</button></td>
+                            </tr>
+                        `);
+                    },
+                    error: function(err) {
+                        alert("error : ", err);
+                    }
+                });
+            }
+
+
+            $(document).ready(function(){
+                $.ajax({
+                    url: 'http://localhost:8888/tp4/exo5/users.php',
+                    type: 'GET',
+                    success: function(res) {
+                        res.forEach(function(user) {
+                            $('#studentsTableBody').append(`
+                                <tr>
+                                    <td>${user.login}</td>
+                                    <td>${user.email}</td>
+                                    <td><button id="edit" onclick="onEditClick()">Edit</button>
+                                    <button id="delete" onclick="onDeleteClick()">Delete</button></td>
+                                </tr>
+                            `);
+                        });
+                    }
+
+                })
+            });
+        </script>
+    </body>
+</html>
