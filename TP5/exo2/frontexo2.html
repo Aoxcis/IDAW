@@ -90,12 +90,46 @@
 
 
         <script>
-            
-
             function onEditClick(link) {
                 event.preventDefault();
-                alert("edit clicked");
+                let previousNom = $(link).closest('tr').find('td:first').text().trim();
+                let tr = $(link).closest("tr");
+                let nom = tr.find("td").eq(0).text();
+                let prenom = tr.find("td").eq(1).text();
+
+                tr.html('<td><input type="text" value="'+nom+'"></td>'+
+                        '<td><input type="text" value="'+prenom+'"></td>'+
+                        '<td><button id="save" class="btn btn-primary saveButton" onclick="onSaveClick(this, \''+previousNom+'\')">Save</button></td>');
             }
+
+            function onSaveClick(link, previousNom){
+                event.preventDefault();
+                let tr = $(link).closest('tr');
+                let nom = tr.find('input').eq(0).val();
+                let prenom = tr.find('input').eq(1).val();
+
+                $.ajax({
+                    url: 'http://localhost:8888/tp4/exo5/users.php',
+                    type: 'PUT',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        "previous_login": previousNom,
+                        "login": nom,
+                        "email": prenom
+                    }),
+                    success: function(res) {
+                        tr.html('<td>'+nom+'</td>'+
+                                '<td>'+prenom+'</td>'+
+                                '<td><button id="edit" onclick="onEditClick(this)">Edit</button>'+
+                                '<button id="delete" onclick="onDeleteClick(this)">Delete</button></td>');
+                        },
+                    error: function(err) {
+                        alert('Error: ' + err.responseText());
+                    }
+                });
+            
+            }
+
 
             function onDeleteClick(link) {
                 event.preventDefault();
